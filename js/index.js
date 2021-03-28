@@ -82,6 +82,16 @@ console.log(cars);
 cars[4] = 'Acura';
 console.log(cars);
 
+countries.push('Austria');
+console.log(countries);
+// ===
+
+const txt = 'hi. i study js';
+const reverseTxt = txt.split('').reverse().join('');
+console.log(reverseTxt);
+
+const fib = [1, 1, 2, 3, 5, 8];
+
 // ==================================
 
 for (let i = 0; i < cars.length; i++) {
@@ -100,13 +110,68 @@ const person = {
   lastName: 'Belon',
   year: 1989,
   city: 'Kyiv',
+  languages: ['ua', 'en', 'ru'],
   greet: function () {
     console.log('Hi from obj');
   },
+  info() {
+    console.info('info about', this.name);
+  },
 };
+
 console.log(person);
 console.log(person.name);
 console.log(person['lastName']);
 person.isProgrammer = true;
 person.greet();
 console.log(person);
+
+for (let key in person) {
+  if (person.hasOwnProperty(key)) {
+    console.log('key: ', key);
+    console.log('value: ', person[key]);
+  }
+}
+
+const keys = Object.keys(person);
+keys.forEach((key) => {
+  console.log('key: ', key);
+  console.log('value: ', person[key]);
+});
+
+// context
+person.info();
+
+const logger = {
+  keys() {
+    console.log('obj keys:', Object.keys(this));
+  },
+  keysAndValues() {
+    Object.keys(this).forEach((key) => {
+      console.log(`'${key}' ${this[key]}`);
+    });
+  },
+};
+const bound = logger.keys.bind(person);
+bound();
+
+logger.keys.call(person);
+logger.keysAndValues.call(person);
+
+// ====== async ======
+
+const timeout = setTimeout(() => {
+  console.log('after timeout');
+}, 1000);
+
+// const interval = setInterval(() => {
+//   console.log('after interval');
+// }, 1500);
+
+const delay = (callback, wait = 1000) => {
+  setTimeout(callback, wait);
+};
+
+delay(() => {
+  console.log('after 2s');
+}, 2000);
